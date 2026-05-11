@@ -68,10 +68,10 @@ MBTI: ${worksheetData.mbti}
   try {
     const result = await model.generateContent(prompt);
     const text = result.response.text();
-    const cleanJson = text.replace(/```json/gi, '').replace(/```/gi, '').trim();
+    const cleanJson = text.replace(/```(?:json)?/gi, '').trim();
     return res.status(200).json(JSON.parse(cleanJson));
   } catch (error) {
-    console.error('Gemini API 호출 에러:', error);
-    return res.status(500).json({ error: 'AI 분석 중 오류가 발생했습니다.' });
+    console.error('Gemini API 호출 에러 세부정보:', error);
+    return res.status(500).json({ error: 'AI 에러 상세: ' + error.message });
   }
 }
