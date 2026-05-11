@@ -116,7 +116,7 @@ const Report = () => {
 
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div style={{ background: 'rgba(0,0,0,0.2)', padding: '24px', borderRadius: '16px', border: '1px solid var(--glass-border)', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h3 style={{ borderBottom: '1px solid var(--glass-border)', paddingBottom: '12px', marginBottom: '24px', textAlign: 'center' }}>🔑 AI 분석 키워드</h3>
+              <div style={{ fontSize: '1.4rem', fontWeight: 'bold', borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '12px', marginBottom: '24px', textAlign: 'center', backgroundColor: 'transparent', color: '#f8fafc' }}>🔑 AI 분석 키워드</div>
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
                 {worksheetData.keywords.map((kw, i) => (
                   <span key={i} style={{ background: 'var(--accent-color)', padding: '10px 20px', borderRadius: '30px', fontSize: '1.1rem', fontWeight: 600 }}>
@@ -130,7 +130,7 @@ const Report = () => {
 
         {/* 3단: 실행 및 Plan B (전체 너비) */}
         <div style={{ background: 'rgba(0,0,0,0.2)', padding: '32px', borderRadius: '16px', border: '1px solid var(--glass-border)', marginBottom: '40px' }}>
-          <h3 style={{ borderBottom: '1px solid var(--glass-border)', paddingBottom: '12px', marginBottom: '24px' }}>🚀 실행 및 Plan B 전략</h3>
+          <div style={{ fontSize: '1.4rem', fontWeight: 'bold', borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '12px', marginBottom: '24px', backgroundColor: 'transparent', color: '#f8fafc' }}>🚀 실행 및 Plan B 전략</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div>
               <strong style={{ color: 'var(--accent-color)', fontSize: '1.1rem', display: 'block', marginBottom: '8px' }}>방향:</strong>
@@ -149,7 +149,7 @@ const Report = () => {
 
         {/* 4단: 부캐릭터 페르소나 (전체 너비 넓게) */}
         <div style={{ background: 'rgba(0,0,0,0.2)', padding: '32px', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>
-          <h3 style={{ borderBottom: '1px solid var(--glass-border)', paddingBottom: '12px', marginBottom: '24px' }}>✨ 부캐릭터 페르소나</h3>
+          <div style={{ fontSize: '1.4rem', fontWeight: 'bold', borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '12px', marginBottom: '24px', backgroundColor: 'transparent', color: '#f8fafc' }}>✨ 부캐릭터 페르소나</div>
           {aiReport ? (
             <>
               <h4 style={{ fontSize: '1.5rem', color: 'var(--accent-color)', marginBottom: '20px', textAlign: 'center' }}>[{aiReport.personaTitle}]</h4>
