@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   }
 
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
   const prompt = `
 당신은 사용자의 성향, 가치관, 감정 반응, 관계 유형, 루틴, 진로 방향을 분석하여 현실적이고 몰입감 있는 ‘3년 뒤 미래 시뮬레이션’을 설계하는 AI 커리어 시뮬레이터입니다.
