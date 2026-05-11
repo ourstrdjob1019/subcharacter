@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Radar } from 'react-chartjs-2';
+import html2canvas from 'html2canvas';
 import {
   Chart as ChartJS,
   RadialLinearScale,
@@ -23,6 +24,7 @@ ChartJS.register(
 const Report = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const reportRef = useRef(null);
   const { studentInfo, worksheetData, aiReport } = location.state || {};
 
   useEffect(() => {
@@ -76,9 +78,27 @@ const Report = () => {
     }
   };
 
+  const handleDownloadImage = async () => {
+    if (!reportRef.current) return;
+    try {
+      const canvas = await html2canvas(reportRef.current, {
+        scale: 2,
+        backgroundColor: '#0f172a', // 리포트 배경색
+      });
+      const image = canvas.toDataURL("image/png");
+      const link = document.createElement('a');
+      link.href = image;
+      link.download = `${studentInfo.name}_부캐리포트.png`;
+      link.click();
+    } catch (error) {
+      console.error('이미지 저장 실패:', error);
+      alert('이미지 저장 중 오류가 발생했습니다.');
+    }
+  };
+
   return (
     <div className="page-layout fade-in">
-      <div className="glass-container">
+      <div className="glass-container" ref={reportRef} style={{ padding: '40px' }}>
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <h1 className="page-title" style={{ fontSize: '2.5rem', marginBottom: '8px' }}>부캐 리포트</h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
@@ -86,63 +106,73 @@ const Report = () => {
           </p>
         </div>
 
+        {/* 2단: 좌측(차트), 우측(키워드) */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', marginBottom: '40px' }}>
-          {/* 차트 영역 */}
           <div style={{ background: 'rgba(0,0,0,0.3)', padding: '24px', borderRadius: '16px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div style={{ width: '100%', maxWidth: '400px' }}>
               <Radar data={data} options={options} />
             </div>
           </div>
 
-          {/* AI 분석 요약 영역 */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div style={{ background: 'rgba(0,0,0,0.2)', padding: '24px', borderRadius: '16px', border: '1px solid var(--glass-border)', flex: 1 }}>
-              <h3 style={{ borderBottom: '1px solid var(--glass-border)', paddingBottom: '12px', marginBottom: '16px' }}>🔑 AI 분석 키워드</h3>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ background: 'rgba(0,0,0,0.2)', padding: '24px', borderRadius: '16px', border: '1px solid var(--glass-border)', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <h3 style={{ borderBottom: '1px solid var(--glass-border)', paddingBottom: '12px', marginBottom: '24px', textAlign: 'center' }}>🔑 AI 분석 키워드</h3>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
                 {worksheetData.keywords.map((kw, i) => (
-                  <span key={i} style={{ background: 'var(--accent-color)', padding: '6px 12px', borderRadius: '20px', fontSize: '0.9rem', fontWeight: 600 }}>
+                  <span key={i} style={{ background: 'var(--accent-color)', padding: '10px 20px', borderRadius: '30px', fontSize: '1.1rem', fontWeight: 600 }}>
                     #{kw}
                   </span>
                 ))}
               </div>
             </div>
+          </div>
+        </div>
 
-            <div style={{ background: 'rgba(0,0,0,0.2)', padding: '24px', borderRadius: '16px', border: '1px solid var(--glass-border)', flex: 2 }}>
-              <h3 style={{ borderBottom: '1px solid var(--glass-border)', paddingBottom: '12px', marginBottom: '16px' }}>✨ 부캐릭터 페르소나</h3>
-              {aiReport ? (
-                <>
-                  <h4 style={{ fontSize: '1.2rem', color: 'var(--accent-color)', marginBottom: '16px' }}>[{aiReport.personaTitle}]</h4>
-                  <div style={{ lineHeight: 1.8, whiteSpace: 'pre-wrap', maxHeight: '400px', overflowY: 'auto', paddingRight: '10px' }}>
-                    {aiReport.description}
-                  </div>
-                </>
-              ) : (
-                <p style={{ lineHeight: 1.8, color: 'var(--danger-color)' }}>
-                  AI 분석 데이터를 불러오는 데 실패했습니다.
-                </p>
-              )}
+        {/* 3단: 실행 및 Plan B (전체 너비) */}
+        <div style={{ background: 'rgba(0,0,0,0.2)', padding: '32px', borderRadius: '16px', border: '1px solid var(--glass-border)', marginBottom: '40px' }}>
+          <h3 style={{ borderBottom: '1px solid var(--glass-border)', paddingBottom: '12px', marginBottom: '24px' }}>🚀 실행 및 Plan B 전략</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div>
+              <strong style={{ color: 'var(--accent-color)', fontSize: '1.1rem', display: 'block', marginBottom: '8px' }}>방향:</strong>
+              <div style={{ lineHeight: 1.6, whiteSpace: 'pre-wrap', color: 'var(--text-primary)' }}>{worksheetData.planDirection}</div>
+            </div>
+            <div>
+              <strong style={{ color: 'var(--accent-color)', fontSize: '1.1rem', display: 'block', marginBottom: '8px' }}>실행 전략:</strong>
+              <div style={{ lineHeight: 1.6, whiteSpace: 'pre-wrap', color: 'var(--text-primary)' }}>{worksheetData.planStrategy}</div>
+            </div>
+            <div>
+              <strong style={{ color: 'var(--accent-color)', fontSize: '1.1rem', display: 'block', marginBottom: '8px' }}>Plan B:</strong>
+              <div style={{ lineHeight: 1.6, whiteSpace: 'pre-wrap', color: 'var(--text-primary)' }}>{worksheetData.planB}</div>
             </div>
           </div>
         </div>
 
-        <div style={{ background: 'rgba(0,0,0,0.2)', padding: '24px', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>
-          <h3 style={{ borderBottom: '1px solid var(--glass-border)', paddingBottom: '12px', marginBottom: '16px' }}>🚀 실행 및 Plan B 전략 (제출 내역)</h3>
-          <div style={{ marginBottom: '16px' }}>
-            <strong style={{ color: 'var(--accent-color)' }}>방향:</strong> {worksheetData.planDirection}
-          </div>
-          <div style={{ marginBottom: '16px' }}>
-            <strong style={{ color: 'var(--accent-color)' }}>실행 전략:</strong> {worksheetData.planStrategy}
-          </div>
-          <div>
-            <strong style={{ color: 'var(--accent-color)' }}>Plan B:</strong> {worksheetData.planB}
-          </div>
+        {/* 4단: 부캐릭터 페르소나 (전체 너비 넓게) */}
+        <div style={{ background: 'rgba(0,0,0,0.2)', padding: '32px', borderRadius: '16px', border: '1px solid var(--glass-border)' }}>
+          <h3 style={{ borderBottom: '1px solid var(--glass-border)', paddingBottom: '12px', marginBottom: '24px' }}>✨ 부캐릭터 페르소나</h3>
+          {aiReport ? (
+            <>
+              <h4 style={{ fontSize: '1.5rem', color: 'var(--accent-color)', marginBottom: '20px', textAlign: 'center' }}>[{aiReport.personaTitle}]</h4>
+              <div style={{ lineHeight: 1.8, fontSize: '1.05rem', whiteSpace: 'pre-wrap' }}>
+                {aiReport.description}
+              </div>
+            </>
+          ) : (
+            <p style={{ lineHeight: 1.8, color: 'var(--danger-color)', textAlign: 'center' }}>
+              AI 분석 데이터를 불러오는 데 실패했습니다.
+            </p>
+          )}
         </div>
-        
-        <div style={{ textAlign: 'center', marginTop: '40px' }}>
-          <button className="btn" onClick={() => navigate('/')}>
-            처음으로 돌아가기
-          </button>
-        </div>
+      </div>
+
+      {/* 5단: 버튼들 (이미지 저장 영역 밖) */}
+      <div style={{ textAlign: 'center', marginTop: '40px', display: 'flex', gap: '20px', justifyContent: 'center' }}>
+        <button className="btn" onClick={handleDownloadImage} style={{ fontSize: '1.1rem', padding: '16px 32px' }}>
+          📸 리포트 이미지로 저장하기
+        </button>
+        <button className="btn" onClick={() => navigate('/')} style={{ background: 'rgba(255,255,255,0.1)', fontSize: '1.1rem', padding: '16px 32px' }}>
+          처음으로 돌아가기
+        </button>
       </div>
     </div>
   );
