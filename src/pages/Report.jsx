@@ -100,7 +100,7 @@ const Report = () => {
     <div className="page-layout fade-in">
       <div className="glass-container" ref={reportRef} style={{ padding: '40px' }}>
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <h1 className="page-title" style={{ fontSize: '2.5rem', marginBottom: '8px' }}>부캐 리포트</h1>
+          <div style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '8px', backgroundColor: 'transparent', color: '#f8fafc', textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>부캐 리포트</div>
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
             {studentInfo.school} {studentInfo.major} {studentInfo.studentId} {studentInfo.name}님
           </p>
@@ -152,7 +152,7 @@ const Report = () => {
           <div style={{ fontSize: '1.4rem', fontWeight: 'bold', borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '12px', marginBottom: '24px', backgroundColor: 'transparent', color: '#f8fafc' }}>✨ 부캐릭터 페르소나</div>
           {aiReport ? (
             <>
-              <h4 style={{ fontSize: '1.5rem', color: 'var(--accent-color)', marginBottom: '20px', textAlign: 'center' }}>[{aiReport.personaTitle}]</h4>
+              <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--accent-color)', marginBottom: '20px', textAlign: 'center', backgroundColor: 'transparent' }}>[{aiReport.personaTitle}]</div>
               <div style={{ lineHeight: 1.8, fontSize: '1.05rem', whiteSpace: 'pre-wrap' }}>
                 {aiReport.description}
               </div>
