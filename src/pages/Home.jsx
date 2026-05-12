@@ -31,7 +31,7 @@ const Home = () => {
       <div className="glass-container" style={{ maxWidth: '600px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <UserCircle2 size={64} color="var(--accent-color)" style={{ marginBottom: '16px' }} />
-          <h1 className="page-title" style={{ marginBottom: '8px', fontSize: '2rem' }}>부캐만들기 프로젝트</h1>
+          <h1 className="page-title" style={{ marginBottom: '8px' }}>부캐만들기 프로젝트</h1>
           <p style={{ color: 'var(--text-secondary)' }}>시작하기 전, 기본 정보를 입력해주세요.</p>
         </div>
 

@@ -150,3 +150,126 @@ h1, h2, h3 {
   padding: 60px 20px;
   width: 100%;
 }
+
+/* Responsive Layout Classes */
+.report-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.button-group {
+  text-align: center;
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.report-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  background-color: transparent;
+  color: #f8fafc;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.worksheet-title {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.responsive-padding {
+  padding: 32px;
+}
+
+.keyword-container {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.keyword-badge {
+  background: var(--accent-color);
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page-layout {
+    padding: 30px 16px;
+  }
+  .glass-container {
+    padding: 24px !important;
+    border-radius: 16px;
+  }
+  .page-title {
+    font-size: 1.8rem !important;
+    margin-bottom: 24px;
+  }
+  .worksheet-title {
+    font-size: 1.6rem !important;
+  }
+  .report-title {
+    font-size: 2rem;
+  }
+  .btn {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+  }
+  .button-group .btn {
+    width: 100%;
+  }
+  .input-field {
+    padding: 12px;
+  }
+  .report-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 24px !important;
+  }
+  h2 {
+    font-size: 1.25rem;
+  }
+  .responsive-padding {
+    padding: 20px !important;
+  }
+  .keyword-container {
+    gap: 8px;
+  }
+  .keyword-badge {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-layout {
+    padding: 20px 12px;
+  }
+  .glass-container {
+    padding: 20px !important;
+  }
+  .page-title {
+    font-size: 1.5rem !important;
+  }
+  .report-title {
+    font-size: 1.6rem;
+  }
+  .worksheet-title {
+    font-size: 1.4rem !important;
+  }
+  .keyword-badge {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+}

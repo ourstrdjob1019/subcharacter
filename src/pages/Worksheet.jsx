@@ -93,7 +93,7 @@ const Worksheet = () => {
   return (
     <div className="page-layout fade-in">
       <div className="glass-container">
-        <h1 className="page-title" style={{ fontSize: '2.2rem', marginBottom: '10px' }}>1단계 워크시트: 진단 기반 자기이해</h1>
+        <h1 className="worksheet-title">1단계 워크시트: 진단 기반 자기이해</h1>
         <p style={{ textAlign: 'center', color: 'var(--text-secondary)', marginBottom: '40px' }}>
           {studentInfo.name}님({studentInfo.major}), 나를 부캐처럼 표현할 수 있도록 아래 질문에 답해보세요.
         </p>
