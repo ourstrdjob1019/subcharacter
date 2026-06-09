@@ -43,6 +43,24 @@ const Worksheet = () => {
     setFormData(prev => ({ ...prev, keywords: newKeywords }));
   };
 
+  const handleTestSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    
+    try {
+      // 1. Gemini AI 호출 (DB 저장 생략)
+      const aiReport = await generatePersonaReport(studentInfo, formData);
+      
+      // 2. 바로 결과 페이지로 이동
+      navigate('/report', { state: { studentInfo, worksheetData: formData, aiReport } });
+    } catch (err) {
+      console.error(err);
+      alert('AI 처리 중 오류가 발생했습니다.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -192,7 +210,10 @@ const Worksheet = () => {
             </div>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
+            <button type="button" onClick={handleTestSubmit} className="btn" disabled={isLoading} style={{ fontSize: '1.2rem', padding: '16px 48px', backgroundColor: 'var(--surface-color)', border: '2px solid var(--primary-color)' }}>
+              {isLoading ? 'AI 분석 중...' : 'AI 결과만 테스트 (DB저장 X)'} 
+            </button>
             <button type="submit" className="btn" disabled={isLoading} style={{ fontSize: '1.2rem', padding: '16px 48px' }}>
               {isLoading ? 'AI 분석 중...' : '부캐 리포트 생성하기'} <Send size={24} style={{ marginLeft: '8px' }} />
             </button>
